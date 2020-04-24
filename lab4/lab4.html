@@ -54,8 +54,75 @@
         light.position.set(10, 10, 10);
         scene.add(light);
 
+        // add cube 4 using shaders
+        var geometry1, material1, mesh1;
+
+        function addTextureShaderCube() {
+            if (count == 2) {
+                let uniforms = {
+                    colorB: { type: 'vec3', value: new THREE.Color(0xACB6E5) },
+                    colorA: { type: 'vec3', value: new THREE.Color(0x74ebd5) }
+                };
+
+                geometry1 = new THREE.BoxGeometry(1, 1, 1);
+                material1 = new THREE.ShaderMaterial({
+                    uniforms: uniforms,
+                    fragmentShader: fshader,
+                    vertexShader: vshader,
+                    precision: "mediump"
+                });
+
+                mesh1 = new THREE.Mesh(geometry1, material1);
+                mesh1.position.y = 2;
+                scene.add(mesh1);
+            }
+        }
+
+        // used for loading the shaders
+        THREE.Cache.enabled = true;
+        var count = 0;
+        var loader = new THREE.FileLoader();
+        var fshader, vshader;
+
+        // load the shaders
+        loader.load('shaders/vertexShader.vert',
+            // onLoad callback
+            function (data) {
+                console.log(data); // output the text to the console
+                vshader = data;
+                count += 1;
+                addTextureShaderCube();
+            },
+            // onProgress callback
+            function (xhr) {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            // onError callback
+            function (err) {
+                console.error('An error happened');
+            });
+
+        loader.load('shaders/fragmentShader.frag',
+            // onLoad callback
+            function (data) {
+                console.log(data); // output the text to the console
+                fshader = data;
+                count += 1;
+                addTextureShaderCube();
+            },
+            // onProgress callback
+            function (xhr) {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            // onError callback
+            function (err) {
+                console.error('An error happened');
+            });
+
+        // to move the light
         var delta = -0.5;
 
+        // animate stuff
         function animate() {
             if (light.position.x < -30.0) {
                 delta = 0.5;
