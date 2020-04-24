@@ -27,12 +27,27 @@
         document.body.appendChild(renderer.domElement);
         camera.position.z = 5;
 
-        // setup the cube
+        // setup first cube
         var geometry = new THREE.BoxGeometry();
         var texture = THREE.ImageUtils.loadTexture("156.jpg");
-        var material = new THREE.MeshPhongMaterial( { map: texture } )
+        var normMap = THREE.ImageUtils.loadTexture("156_norm.jpg");
+        var material = new THREE.MeshPhongMaterial({ map: texture, normalMap: normMap });
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
+
+        // set up second cube
+        material = new THREE.MeshPhongMaterial({ map: texture })
+        var cube2 = new THREE.Mesh(geometry, material);
+        scene.add(cube2);
+        cube2.position.x -= 2;
+
+        // set up third cube
+        texture = THREE.ImageUtils.loadTexture("176.jpg");
+        normMap = THREE.ImageUtils.loadTexture("176_norm.jpg");
+        material = new THREE.MeshPhongMaterial({ map: texture, normalMap: normMap });
+        var cube3 = new THREE.Mesh(geometry, material);
+        scene.add(cube3);
+        cube3.position.x += 2;
 
         // add the light
         var light = new THREE.PointLight(0xffffff, 1, 1000);
