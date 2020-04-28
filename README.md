@@ -17,8 +17,8 @@ How: (From left to right) The first cube is made using shaders. I simply copied 
 Video: https://drive.google.com/open?id=1b7r3TuA5xE15Tofzve2w6at6cpShX7ZJ
 
 How: 
-- Cube 1 (Center): Using three.js built in texture functionality, I gave this cube a grassy-stone texture and its corresponding normal map to produce a fairly detailed centerpiece. Being in the center, you cannot see its sides.
-- Cube 2 (Left): This is essentially the same as Cube 1, but without the normal map. It looks noticeably less detailed with the lighting, but you can see its right side due to it being 2 to the left.
+- Cube 1 (Left): Using three.js built in texture functionality, I gave this cube a grassy-stone texture. It has no normal map, and thus looks quite dull. Being off the left by 2, you can see its right side.
+- Cube 2 (Center): This is essentially the same as Cube 1, but it has a corresponding normal map which makes it look fairly detailed as if it's bumpy. Being in the center, you cannot see its sides.
 - Cube 3 (Right): Again similar to Cube 1, but this time it uses a sandy-brick texture and corresponding normal map. It's also off to the right by 2, meaning you can see its left side.
 - Cube 4 (Top): This uses shaders per the instructions. I gave it a pinkish texture, possibly old paint on metal or wood. It has no normal map, and so looks quite dull. It's up by 2, meaning you can see its bottom side.
 - Cube 5 (Bottom): My favorite! This is similar to Cube 4, except I did some math magic to give it a 4x4 tiled wood texture. Basically, I took the varying vec2 "vUv" passed from the vertex shader and modded it by 0.25 then multiplied it by 4.0 in the fragment shader, storing this as "vUv2". The result is a 4x4 cube, in which the original wood texture repeats itself in a 4x4 grid on each side. See line 61 in lab4.html for the magic. Cool! This cube is down by 2, meaning you can see its top.
