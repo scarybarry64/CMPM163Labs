@@ -9,6 +9,7 @@
     <title>Lab 4: Textures & Normal Maps</title>
 
     <style>
+
         body {
             margin: 0;
         }
@@ -16,6 +17,7 @@
         canvas {
             display: block;
         }
+
     </style>
 
 </head>
@@ -25,6 +27,7 @@
     <script src="../three.js-master/build/three.js"></script>
 
     <script id="vertexShader" type="x-shader/x-vertex">
+
         // code for vertex shader
         varying vec2 vUv;
         void main() {
@@ -32,31 +35,38 @@
           vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
           gl_Position = projectionMatrix * modelViewPosition;
         }
+
         </script>
 
     <script id="fragmentShader" type="x-shader/x-fragment">
+
         // code for fragment shader
         uniform sampler2D texture1;
         varying vec2 vUv;
         void main() {
             gl_FragColor = texture2D(texture1, vUv);
         }
+
         </script>
 
     <script id="fragmentShader2" type="x-shader/x-fragment">
+
             // code for fragment shader 2
             uniform sampler2D texture2;
             varying vec2 vUv;
             void main() {
 
                 // here's where the magic happens
-                vec2 vUv2 = vec2(mod(vUv.x, 0.5), mod(vUv.y, 0.5)) * 2.0;
+                // makes a 4 x 4 tiled cube
+                vec2 vUv2 = vec2(mod(vUv.x, 0.25), mod(vUv.y, 0.25)) * 4.0;
 
                 gl_FragColor = texture2D(texture2, vUv2);
             }
+
             </script>
 
     <script>
+
         // setup the scene
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75,
@@ -66,7 +76,7 @@
         document.body.appendChild(renderer.domElement);
         camera.position.z = 5;
 
-        // setup first cube
+        // set up first cube (center, w/ normal map)
         var geometry = new THREE.BoxGeometry();
         var texture = THREE.ImageUtils.loadTexture("156.jpg");
         var normMap = THREE.ImageUtils.loadTexture("156_norm.jpg");
@@ -74,13 +84,13 @@
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
-        // set up second cube
+        // set up second cube (left, no normal map)
         material = new THREE.MeshPhongMaterial({ map: texture })
         var cube2 = new THREE.Mesh(geometry, material);
         scene.add(cube2);
         cube2.position.x -= 2;
 
-        // set up third cube
+        // set up third cube (right, w/ normal map)
         texture = THREE.ImageUtils.loadTexture("179.jpg");
         normMap = THREE.ImageUtils.loadTexture("179_norm.jpg");
         material = new THREE.MeshPhongMaterial({ map: texture, normalMap: normMap });
@@ -88,7 +98,7 @@
         scene.add(cube3);
         cube3.position.x += 2;
 
-        // add cube 4 using shaders
+        // set up fourth cube (top, using shaders)
         var geometry1, material1, mesh1;
         var uniforms = {
             texture1: {
@@ -96,28 +106,17 @@
                     THREE.ImageUtils.loadTexture("171.jpg")
             }
         };
-
         geometry1 = new THREE.BoxGeometry(1, 1, 1);
         material1 = new THREE.ShaderMaterial({
             uniforms: uniforms,
             vertexShader: document.getElementById('vertexShader').textContent,
             fragmentShader: document.getElementById('fragmentShader').textContent
         })
-
-        /*
-        material1 = new THREE.ShaderMaterial({
-            uniforms: uniforms,
-            fragmentShader: fshader,
-            vertexShader: vshader,
-            precision: "mediump"
-        }); */
-
         mesh1 = new THREE.Mesh(geometry1, material1);
         mesh1.position.y = 2;
         scene.add(mesh1);
 
-
-        // add cube 5 
+        // set up fifth cube (bottom, using shaders and 4x4 tiled texture)
         uniforms = {
             texture2: {
                 type: "t", value:
@@ -134,63 +133,10 @@
         mesh2.position.y = -2;
         scene.add(mesh2);
 
-
-
-
-
-
         // add the light
         var light = new THREE.PointLight(0xffffff, 1, 1000);
         light.position.set(10, 10, 10);
         scene.add(light);
-
-
-
-
-        /*        
-        // used for loading the shaders
-        THREE.Cache.enabled = true;
-        var count = 0;
-        var loader = new THREE.FileLoader();
-        var fshader, vshader;
-
-        // load the shaders
-        loader.load('shaders/vertexShader.vert',
-            // onLoad callback
-            function (data) {
-                console.log(data); // output the text to the console
-                vshader = data;
-                count += 1;
-                addTextureShaderCube();
-            },
-            // onProgress callback
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-            },
-            // onError callback
-            function (err) {
-                console.error('An error happened');
-            });
-
-        loader.load('shaders/fragmentShader.frag',
-            // onLoad callback
-            function (data) {
-                console.log(data); // output the text to the console
-                fshader = data;
-                count += 1;
-                addTextureShaderCube();
-            },
-            // onProgress callback
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-            },
-            // onError callback
-            function (err) {
-                console.error('An error happened');
-            });
-            */
-
-        // to move the light
         var delta = -0.5;
 
         // animate stuff
@@ -206,7 +152,6 @@
             renderer.render(scene, camera);
         }
         animate();
-
 
     </script>
 
