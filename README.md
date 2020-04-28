@@ -21,4 +21,9 @@ How:
 - Cube 2 (Left): This is essentially the same as Cube 1, but without the normal map. It looks noticeably less detailed with the lighting, but you can see its right side due to it being 2 to the left.
 - Cube 3 (Right): Again similar to Cube 1, but this time it uses a sandy-brick texture and corresponding normal map. It's also off to the right by 2, meaning you can see its left side.
 - Cube 4 (Top): This uses shaders per the instructions. I gave it a pinkish texture, possibly old paint on metal or wood. It has no normal map, and so looks quite dull. It's up by 2, meaning you can see its bottom side.
-- Cube 5 (Bottom): My favorite! This is similar to Cube 4, except I did some math magic to give it a tiled wood texture.
+- Cube 5 (Bottom): My favorite! This is similar to Cube 4, except I did some math magic to give it a 4x4 tiled wood texture. Basically, I took the varying vec2 "vUv" and modded it by 0.25, then I multiplied by 4.0. The result is a 4x4 cube, in which the original wood texture repeats itself in a 4x4 grid on each side. See line 61 for the magic. Cool! This cube is down by 2, meaning you can see its top.
+
+Answers:
+- a) To get the x coordinate from a given u value, multiply u by 8. Formula: x = 8 * u
+- b) To get the y coordinate from a given v value, multiply v by 8. Formula: y = 8 * v
+- c) White is the color sampled from the texture at uv coordinate (0.375, 0.25), which corresponds to (3, 2) on the texture.
