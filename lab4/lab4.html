@@ -77,6 +77,7 @@
         camera.position.z = 5;
 
         // set up first cube (center, w/ normal map)
+        // Texture A
         var geometry = new THREE.BoxGeometry();
         var texture = THREE.ImageUtils.loadTexture("156.jpg");
         var normMap = THREE.ImageUtils.loadTexture("156_norm.jpg");
@@ -85,12 +86,14 @@
         scene.add(cube);
 
         // set up second cube (left, no normal map)
+        // Texture A and Normal Map A
         material = new THREE.MeshPhongMaterial({ map: texture })
         var cube2 = new THREE.Mesh(geometry, material);
         scene.add(cube2);
         cube2.position.x -= 2;
 
         // set up third cube (right, w/ normal map)
+        // Texture B and Normal Map B
         texture = THREE.ImageUtils.loadTexture("179.jpg");
         normMap = THREE.ImageUtils.loadTexture("179_norm.jpg");
         material = new THREE.MeshPhongMaterial({ map: texture, normalMap: normMap });
@@ -99,6 +102,7 @@
         cube3.position.x += 2;
 
         // set up fourth cube (top, using shaders)
+        // Texture C
         var geometry1, material1, mesh1;
         var uniforms = {
             texture1: {
@@ -117,6 +121,7 @@
         scene.add(mesh1);
 
         // set up fifth cube (bottom, using shaders and 4x4 tiled texture)
+        // Texture D
         uniforms = {
             texture2: {
                 type: "t", value:
