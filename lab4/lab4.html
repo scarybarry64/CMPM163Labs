@@ -76,8 +76,9 @@
         document.body.appendChild(renderer.domElement);
         camera.position.z = 5;
 
-        // set up first cube (center, w/ normal map)
-        // Texture A
+        // NOTE: Cube 2 is listed here first, followed by Cube 1
+        // set up second cube (center, w/ normal map)
+        // Texture A and Normal Map A
         var geometry = new THREE.BoxGeometry();
         var texture = THREE.ImageUtils.loadTexture("156.jpg");
         var normMap = THREE.ImageUtils.loadTexture("156_norm.jpg");
@@ -85,8 +86,8 @@
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
-        // set up second cube (left, no normal map)
-        // Texture A and Normal Map A
+        // set up first cube (left, no normal map)
+        // Texture A
         material = new THREE.MeshPhongMaterial({ map: texture })
         var cube2 = new THREE.Mesh(geometry, material);
         scene.add(cube2);
