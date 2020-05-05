@@ -31,7 +31,7 @@
         // generate particles array; stores position, velocity, and acceleration
         particles = []
         const geo = new THREE.Geometry()
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             const particle = {
                 position: new THREE.Vector3(
                     Math.random() * 2 - 1,
@@ -62,6 +62,22 @@
         let t = 0;
 
 
+
+        // "Bat-math"
+
+
+        function eq1 (x, y) {
+            return ((x/7) * (x/7) * (Math.sqrt((Math.abs(Math.abs(x)-3))/(Math.abs(x)-3))) + (y/3) * (y/3) * (Math.sqrt(Math.abs(y+3*(Math.sqrt(33)/7))/(y+3*(Math.sqrt(33)/7)))) - 1);
+        }
+
+        function eq2 (x, y) {
+            return (Math.abs(x/2) - ((3*Math.sqrt(33)-7)/112) * x * x - 3 + Math.sqrt(1-(Math.abs(Math.abs(x)-2)-1)*(Math.abs(Math.abs(x)-2)-1)) - y);
+        }
+
+
+
+
+
         function animate() {
 
 
@@ -89,18 +105,30 @@
                 }
                 */
 
+                /*
 
                 p.position.x = 60*Math.cos(t)
                 p.position.y = 30*Math.sin(2*t);
-                t += 0.075;
+                t += 0.01;
 
 
                 if (t > 6.28) {
                     t = 0;
                 }
 
+                */
 
 
+
+                if (eq1(p.position.x, p.position.y) >= 0) {
+                    p.position.x = 0;
+                    p.position.y = 0;
+                    p.position.z = 0;
+                    console.log("TRUE");
+                }
+
+
+                p.position.add(p.velocity);
 
 
 
