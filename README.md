@@ -27,3 +27,7 @@ Answers:
 - a) To get the x coordinate from a given u value, multiply u by 8. Formula: x = 8 * u
 - b) To get the y coordinate from a given v value, multiply v by 8. Formula: y = 8 * v
 - c) White is the color sampled from the texture at uv coordinate (0.375, 0.25), which corresponds to (3, 2) on the texture.
+
+# Lab 5 (Part 2)
+
+ Video (a): https://drive.google.com/open?id=1C9ZucNlukZh1-qtxaPmZEQA1eXvk4Rsq
