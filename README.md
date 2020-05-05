@@ -31,3 +31,5 @@ Answers:
 # Lab 5 (Part 2)
 
  Video (a): https://drive.google.com/open?id=1C9ZucNlukZh1-qtxaPmZEQA1eXvk4Rsq
+ 
+ Video (b): https://drive.google.com/open?id=1-I7vEGlgaAQ7-i1cRp2r-2U7Egl-CBUh
