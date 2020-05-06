@@ -25,7 +25,7 @@
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
-        camera.position.z = 60;
+        camera.position.z = 10;
 
 
         // generate particles array; stores position, velocity, and acceleration
@@ -60,25 +60,19 @@
             geo.vertices.push(particle.position)
         }
 
-        /*
-        // make points
-        const mat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
-        mesh = new THREE.Points(geo, mat);
-        mesh.position.z = -4;
-        scene.add(mesh);
-        */
+
 
 
 
         var sprite = new THREE.TextureLoader().load('disc.png');
         var material = new THREE.PointsMaterial({
-            size: 20,
+            size: 5,
             sizeAttenuation: false, map: sprite, alphaTest: 0.5,
             transparent: true
         });
         material.color.setHSL(1.0, 0.3, 0.7);
-        var points = new THREE.Points(geometry, material);
-        scene.add(points);
+        var mesh = new THREE.Points(geo, material);
+        scene.add(mesh);
 
         let t = 0;
 
@@ -112,6 +106,13 @@
         }
 
 
+
+        // finds vector normal to current vector
+        function findNormal (x, y) {
+            let z = x;
+            x = -y;
+            y = -z;
+        }
 
 
         function animate() {
@@ -159,40 +160,53 @@
 
 
                 if (eq1(p.position.x, p.position.y) >= 0) {
-                    p.position.x = 0;
-                    p.position.y = 0;
-                    p.position.z = 0;
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
                 }
 
 
                 if (eq2(p.position.x, p.position.y) >= 0) {
-                    p.position.x = 0;
-                    p.position.y = 0;
-                    p.position.z = 0;
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
                 }
 
                 if (eq3(p.position.x, p.position.y) <= 0) {
-                    p.position.x = 0;
-                    p.position.y = 0;
-                    p.position.z = 0;
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
                 }
 
                 if (eq4(p.position.x, p.position.y) <= 0) {
-                    p.position.x = 0;
-                    p.position.y = 0;
-                    p.position.z = 0;
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
                 }
 
                 if (eq5(p.position.x, p.position.y) <= 0) {
-                    p.position.x = 0;
-                    p.position.y = 0;
-                    p.position.z = 0;
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
                 }
 
                 if (eq6(p.position.x, p.position.y) <= 0) {
-                    p.position.x = 0;
-                    p.position.y = 0;
-                    p.position.z = 0;
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
+                }
+
+                if (Math.abs(p.position.x) > 7 || Math.abs(p.position.y > 5)) {
+                    let temp = p.velocity.x;
+                    p.velocity.x = -1 * p.velocity.y
+                    p.velocity.y = -1 * temp;
+
                 }
 
                 //p.velocity.add(p.acceleration);
