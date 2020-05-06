@@ -18,7 +18,8 @@
 <body>
     <script src="../three.js-master/build/three.js"></script>
     <script>
-        // setup the scene
+
+        // Setup the scene
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75,
             window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -27,8 +28,7 @@
         document.body.appendChild(renderer.domElement);
         camera.position.z = 7;
 
-
-        // generate particles array; stores position, velocity, and acceleration
+        // Generate particles array; stores position, velocity, and acceleration
         particles = []
         const geo = new THREE.Geometry()
         for (let i = 0; i < 15000; i++) {
@@ -38,19 +38,9 @@
                     Math.random() * 2 - 1,
                     Math.random() * 3 - 3),
                 velocity: new THREE.Vector3(
-
-                    /*
-                        Math.random() * .02 - .01,
-                        0.06,
-                        Math.random() * .02 - .01),
-                    */
-
                     Math.random() * .02 - .01,
                     Math.random() * .02 - .01,
                     0),
-
-
-
                 acceleration: new THREE.Vector3(
                     Math.random() * .002 - .001,
                     Math.random() * .002 - .001,
@@ -60,10 +50,7 @@
             geo.vertices.push(particle.position)
         }
 
-
-
-
-
+        // Add particles to scene, using Part2a texture
         var sprite = new THREE.TextureLoader().load('disc.png');
         var material = new THREE.PointsMaterial({
             size: 5,
@@ -74,107 +61,47 @@
         var mesh = new THREE.Points(geo, material);
         scene.add(mesh);
 
-        let t = 0;
-
-
-
-        // "Bat-math"
-
-
+        // "Bat-math": https://math.stackexchange.com/questions/54506/is-this-batman-equation-for-real
         function eq1(x, y) {
-            return ((x / 7) * (x / 7) * (Math.sqrt((Math.abs(Math.abs(x) - 3)) / (Math.abs(x) - 3))) + (y / 3) * (y / 3) * (Math.sqrt(Math.abs(y + 3 * (Math.sqrt(33) / 7)) / (y + 3 * (Math.sqrt(33) / 7)))) - 1);
+            return ((x / 7) * (x / 7) * (Math.sqrt((Math.abs(Math.abs(x) - 3)) / (Math.abs(x) - 3))) + (y / 3) * (y / 3)
+                * (Math.sqrt(Math.abs(y + 3 * (Math.sqrt(33) / 7)) / (y + 3 * (Math.sqrt(33) / 7)))) - 1);
         }
-
         function eq2(x, y) {
-            return (Math.abs(x / 2) - ((3 * Math.sqrt(33) - 7) / 112) * x * x - 3 + Math.sqrt(1 - (Math.abs(Math.abs(x) - 2) - 1) * (Math.abs(Math.abs(x) - 2) - 1)) - y);
+            return (Math.abs(x / 2) - ((3 * Math.sqrt(33) - 7) / 112) * x * x - 3 + Math.sqrt(1 - (Math.abs(Math.abs(x) - 2) - 1)
+                * (Math.abs(Math.abs(x) - 2) - 1)) - y);
         }
-
         function eq3(x, y) {
-            return (9 * Math.sqrt(Math.abs((1 - Math.abs(x)) * (Math.abs(x) - 0.75)) / ((1 - Math.abs(x)) * (Math.abs(x) - 0.75))) - 8 * Math.abs(x) - y);
+            return (9 * Math.sqrt(Math.abs((1 - Math.abs(x)) * (Math.abs(x) - 0.75)) / ((1 - Math.abs(x)) * (Math.abs(x) - 0.75)))
+                - 8 * Math.abs(x) - y);
         }
-
         function eq4(x, y) {
-            return (3 * Math.abs(x) + 0.75 * Math.sqrt(Math.abs((0.75 - Math.abs(x)) * (Math.abs(x) - 0.5)) / ((0.75 - Math.abs(x)) * (Math.abs(x) - 0.5))) - y);
+            return (3 * Math.abs(x) + 0.75 * Math.sqrt(Math.abs((0.75 - Math.abs(x)) * (Math.abs(x) - 0.5)) / ((0.75 - Math.abs(x))
+                * (Math.abs(x) - 0.5))) - y);
         }
-
         function eq5(x, y) {
             return (2.25 * Math.sqrt(Math.abs((0.5 - x) * (x + 0.5)) / ((0.5 - x) * (x + 0.5))) - y);
         }
-
         function eq6(x, y) {
-            return ((6 * Math.sqrt(10)) / 7 + (1.5 - 0.5 * Math.abs(x)) * Math.sqrt(Math.abs(Math.abs(x) - 1) / (Math.abs(x) - 1)) - ((6 * Math.sqrt(10)) / 14) * Math.sqrt(4 - (Math.abs(x) - 1) * (Math.abs(x) - 1)) - y);
+            return ((6 * Math.sqrt(10)) / 7 + (1.5 - 0.5 * Math.abs(x)) * Math.sqrt(Math.abs(Math.abs(x) - 1) / (Math.abs(x) - 1))
+                - ((6 * Math.sqrt(10)) / 14) * Math.sqrt(4 - (Math.abs(x) - 1) * (Math.abs(x) - 1)) - y);
         }
 
-
-
-        // finds vector normal to current vector
-        function findNormal(x, y) {
-            let z = x;
-            x = -y;
-            y = -z;
-        }
-
-
+        // Animate the Batman symbol!
         function animate() {
 
-
-
-
-            // increment velocity and position
+            // Update per particle
             particles.forEach(p => {
-                //p.velocity.add(p.acceleration);
-                //p.position.add(p.velocity);
 
-                //p.velocity.x *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
-                //p.velocity.y *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
-
-                /*
-                if (p.position.x < -40.0) {
-                    deltaX = 0.4;
-                }
-                else if (p.position.x > 40.0) {
-                    deltaX = -0.4;
-                }
-                
-                if (p.position.y < -20.0) {
-                    deltaY = 0.2;
-                }
-                else if (p.position.x > 20.0) {
-                    deltaY = -0.2;
-                }
-                */
-
-                /*
-
-                p.position.x = 60*Math.cos(t)
-                p.position.y = 30*Math.sin(2*t);
-                t += 0.01;
-
-
-                if (t > 6.28) {
-                    t = 0;
-                }
-
-                */
-
-
-
+                // Use Bat-math to bind the particles within the Bat-bounds
                 if (eq1(p.position.x, p.position.y) >= 0 || eq2(p.position.x, p.position.y) >= 0 ||
                     eq3(p.position.x, p.position.y) <= 0 || eq4(p.position.x, p.position.y) <= 0 ||
                     eq5(p.position.x, p.position.y) <= 0 || eq6(p.position.x, p.position.y) <= 0 ||
                     Math.abs(p.position.x) > 6 || Math.abs(p.position.y) > 3) {
 
-                    /*
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-                    */
-
-
+                    // If outta the Bat-bounds, randomly generate new position
                     p.position.x = Math.random() * 6;
                     p.position.y = Math.random() * 1;
                     p.position.z = Math.random() * 3 - 3;
-
                     if (Math.random() > 0.5) {
                         p.position.x *= -1;
                     }
@@ -182,77 +109,25 @@
                         p.position.y += -1;
                     }
 
-
                 }
 
-                /*
-                if (eq2(p.position.x, p.position.y) >= 0) {
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-
-                }
-
-                if (eq3(p.position.x, p.position.y) <= 0) {
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-
-                }
-
-                if (eq4(p.position.x, p.position.y) <= 0) {
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-
-                }
-
-                if (eq5(p.position.x, p.position.y) <= 0) {
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-
-                }
-
-                if (eq6(p.position.x, p.position.y) <= 0) {
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-
-                }
-
-                if (Math.abs(p.position.x) > 7 || Math.abs(p.position.y > 5)) {
-                    let temp = p.velocity.x;
-                    p.velocity.x = -1 * p.velocity.y
-                    p.velocity.y = -1 * temp;
-
-                }
-                */
-                //p.velocity.add(p.acceleration);
+                // Move particles and randomly change colors
                 p.position.add(p.velocity);
-
                 if (Math.random() > 0.99999) {
                     material.color.setHSL(Math.random(), Math.random(), Math.random());
                 }
 
-
-                /* 
-                 p.velocity.x += deltaX;
-                 p.velocity.y += deltaY;
-                 p.position.add(p.velocity);
-                 */
             });
+
+            // Rendering stuff
             mesh.geometry.verticesNeedUpdate = true;
-
-
-
-
-
-
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
         }
+
+        // I'M BATMAN!!!!!
         animate();
+
     </script>
 </body>
 
