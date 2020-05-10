@@ -97,18 +97,12 @@
 
 
 
-
-
-
-
-
         function animate() {
 
             // Change colors slowly
             var time = Date.now() * 0.00005;
             var h = (360 * (1.0 + time) % 360) / 360;
             material.color.setHSL(h, 0.5, 0.5);
-
             
             // move camera with mouse
             camera.position.x += (mouseX - camera.position.x) * 0.0005;
