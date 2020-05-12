@@ -47,3 +47,7 @@ While browsing the internet for "cool looking graphs", I encountered a graph of 
 # Lab 6 (Part 2)
 
 Screenshot: ![](lab6/TextureCorrectAspectRatio.png)
+
+Link to *My* Cool Shadertoy: https://www.shadertoy.com/view/3dffWf
+
+Link to *Someone Else's* Cool Shadertoy: 
