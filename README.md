@@ -50,4 +50,4 @@ Screenshot: ![](lab6/TextureCorrectAspectRatio.png)
 
 Link to *My* Cool Shadertoy: https://www.shadertoy.com/view/3dffWf
 
-Link to *Someone Else's* Cool Shadertoy: 
+Link to *Someone Else's* Cool Shadertoy: https://www.shadertoy.com/view/4lGyW1
