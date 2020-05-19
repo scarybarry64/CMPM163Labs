@@ -64,8 +64,15 @@
         camera.position.z = -4;
         camera.rotation.x = 1;
 
+        // camera.position.y = 5;
+        // camera.position.z = 0;
+        // camera.rotation.x = -.5;
+
+
+
+
         // setup light
-        const light = new THREE.DirectionalLight(0xffffff, 1.0);
+        const light = new THREE.DirectionalLight(0xff0000, 1.0);
         light.position.set(1, 1, 1).normalize();
         scene.add(light);
         scene.add(new THREE.AmbientLight(0xffffff, 0.3));
@@ -73,10 +80,37 @@
 
 
 
+        // var uniforms = {
+        //     texture1: { type: "t", value: THREE.ImageUtils.loadTexture("firesky.jpg") },
+        //     //heightMap1: { type: "t",value:THREE.ImageUtils.loadTexture("heightMap1.png")}
+        // };
+
+        // var material = new THREE.ShaderMaterial({
+        //     uniforms: uniforms,
+        //     vertexShader: document.getElementById('vertexShader').textContent, fragmentShader: document.getElementById('fragmentShader').textContent
+        // });
+
+
+
+        // var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 200,
+        //     200), material);
+        // plane.position.z = -10;
+        // plane.position.y = -1;
+        // plane.rotation.x = -Math.PI / 2;
+        // scene.add(plane);
+
+
+
+
+
+
+
+
+
 
         // setup texture and height map for volcano
         var uniforms = {
-            texture1: { type: "t", value: THREE.ImageUtils.loadTexture("volcano.png") },
+            texture1: { type: "t", value: THREE.ImageUtils.loadTexture("slate.png") },
             //texture1: { type: "t", value: THREE.ImageUtils.loadTexture("stone.jpg") },
             heightMap1: { type: "t", value: THREE.ImageUtils.loadTexture("volcano.png") }
         };
@@ -94,7 +128,7 @@
 
         volcano.position.z = -8;
 
-        volcano.scale.x = 2;
+        volcano.scale.x = 3;
         volcano.scale.y = 2;
         volcano.scale.z = 2;
 
@@ -112,11 +146,11 @@
         var p = new THREE.PlaneGeometry(20, 20, 100, 100);
         var lava = new THREE.Mesh(p, mat);
 
-        lava.position.x = -0.6;
+        lava.position.x = -0.9;
         lava.position.y = 0.6;
         lava.position.z = -6.2;
 
-        lava.scale.x = 0.17;
+        lava.scale.x = 0.3;
         lava.scale.y = 0.17;
         lava.scale.z = 0.17;
 
@@ -129,20 +163,20 @@
         mat.onBeforeCompile = (shader) => {
             shader.uniforms.time = { value: 0 }
             shader.vertexShader = `
-		        uniform float time;
-		    ` + shader.vertexShader
+                uniform float time;
+            ` + shader.vertexShader
 
             const token = '#include <begin_vertex>'
             const customTransform = `
-		        vec3 transformed = vec3(position);
-		        float freq = 2.5;
-		        float amp = 0.07;
-		        float angle = (time + position.x)*freq;
-		        transformed.z += sin(angle)*amp;
+                vec3 transformed = vec3(position);
+                float freq = 2.5;
+                float amp = 0.07;
+                float angle = (time + position.x)*freq;
+                transformed.z += sin(angle)*amp;
                 objectNormal = normalize(vec3(-amp * freq * cos(angle),0.0,1.0));
                 vNormal = normalMatrix * objectNormal;
 
-		`
+        `
             shader.vertexShader = shader.vertexShader.replace(token, customTransform)
             matShader = shader
         }
@@ -155,8 +189,8 @@
         var loader = new THREE.GLTFLoader();
         loader.load('shark.glb', function (gltf) {
             scene.add(gltf.scene);
-            gltf.scene.position.x = -0.6;
-            gltf.scene.position.y = 1.1;
+            gltf.scene.position.x = -0.9;
+            gltf.scene.position.y = 0.8;
             gltf.scene.position.z = -6.7;
             gltf.scene.scale.x = 0.5;
             gltf.scene.scale.y = 0.5;
