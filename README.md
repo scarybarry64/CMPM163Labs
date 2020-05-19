@@ -51,3 +51,12 @@ Screenshot: ![](lab6/TextureCorrectAspectRatio.png)
 Link to *My* Cool Shadertoy: https://www.shadertoy.com/view/3dffWf
 
 Link to *Someone Else's* Cool Shadertoy: https://www.shadertoy.com/view/4lGyW1
+
+
+# Lab 7 (Part 2)
+
+Height Map Screenshot: ![](lab7/screenshots/Volcano.png)
+
+Alternate Texture Screenshot: ![](lab7/screenshots/VolcanoWater.png)
+
+Video of Ripple Effect: https://drive.google.com/file/d/1OAE16n8XFCRfEBH04LUG9fTmOSoVgStR/view?usp=sharing
