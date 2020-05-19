@@ -24,18 +24,14 @@
     <script id="vertexShader" type="x-shader/x-vertex">
 
         // code for vertex shader
-
         uniform sampler2D heightMap1;
         varying vec2 vUv;
-        
 		void main() {
-
 			vUv = uv;
 			vec4 heightColor = texture2D(heightMap1, uv);
 	        vec3 newPosition = position + normal * 1.5 * heightColor.r;
 	        vec4 modelViewPosition = modelViewMatrix * vec4(newPosition, 1.0);
             gl_Position = projectionMatrix * modelViewPosition;
-            
         }
         
 	</script>
@@ -64,29 +60,27 @@
         camera.position.z = -3;
         camera.rotation.x = -.5;
 
+        // setup light
         const light = new THREE.DirectionalLight(0xffffff, 1.0);
         light.position.set(1, 1, 1).normalize();
         scene.add(light);
         scene.add(new THREE.AmbientLight(0xffffff, 0.3));
 
-
-
-
+        // setup texture and height map
         var uniforms = {
             texture1: { type: "t", value: THREE.ImageUtils.loadTexture("volcano.png") },
             //texture1: { type: "t", value: THREE.ImageUtils.loadTexture("water.jpg") },
             heightMap1: { type: "t", value: THREE.ImageUtils.loadTexture("volcano.png") }
         };
 
-
-
+        // setup material
         var material = new THREE.ShaderMaterial({
             uniforms: uniforms,
             vertexShader: document.getElementById('vertexShader').textContent, fragmentShader: document.getElementById('fragmentShader').textContent
         });
 
 
-
+        // setup plane that uses texture/heightmap
         var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 200,
             200), material);
         plane.position.z = -10;
@@ -94,8 +88,7 @@
         plane.rotation.x = -Math.PI / 2;
         scene.add(plane);
 
-
-
+        // animate
         function animate(time) {
             renderer.render(scene, camera);
         }
