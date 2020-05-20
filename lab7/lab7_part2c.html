@@ -21,6 +21,7 @@
 
     <script src="../three.js-master/build/three.js"></script>
     <script src="../three.js-master/examples/js/loaders/GLTFLoader.js"></script>
+
     <script id="vertexShader" type="x-shader/x-vertex">
 
         // code for vertex shader
@@ -31,6 +32,19 @@
 			vec4 heightColor = texture2D(heightMap1, uv);
 	        vec3 newPosition = position + normal * 1.5 * heightColor.r;
 	        vec4 modelViewPosition = modelViewMatrix * vec4(newPosition, 1.0);
+            gl_Position = projectionMatrix * modelViewPosition;
+        }
+        
+    </script>
+
+    <script id="vertexShader2" type="x-shader/x-vertex">
+
+        // code for vertex shader 2
+        uniform sampler2D heightMap1;
+        varying vec2 vUv;
+		void main() {
+            vUv = uv;
+            vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
             gl_Position = projectionMatrix * modelViewPosition;
         }
         
@@ -57,106 +71,67 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-
         // adjust camera
         camera.position.x = -0.5;
         camera.position.y = -2;
         camera.position.z = -4;
         camera.rotation.x = 1;
 
-        // camera.position.y = 5;
-        // camera.position.z = 0;
-        // camera.rotation.x = -.5;
-
-
-
-
-        // setup light
+        // add red light
         const light = new THREE.DirectionalLight(0xff0000, 1.0);
         light.position.set(1, 1, 1).normalize();
         scene.add(light);
         scene.add(new THREE.AmbientLight(0xffffff, 0.3));
 
+        // add fire sky to background of scene
+        var uniforms = {
+            texture1: { type: "t", value: THREE.ImageUtils.loadTexture("firesky.jpg") },
+        };
+        var material = new THREE.ShaderMaterial({
+            uniforms: uniforms,
+            vertexShader: document.getElementById('vertexShader2').textContent, fragmentShader: document.getElementById('fragmentShader').textContent
+        });
+        var sky = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 200,
+            200), material);
+        sky.position.x = -1;
+        sky.position.y = 20;
+        sky.position.z = -20;
+        sky.scale.x = 10;
+        sky.scale.y = 10;
+        sky.rotation.x = 1.0;
+        scene.add(sky);
 
-
-
-        // var uniforms = {
-        //     texture1: { type: "t", value: THREE.ImageUtils.loadTexture("firesky.jpg") },
-        //     //heightMap1: { type: "t",value:THREE.ImageUtils.loadTexture("heightMap1.png")}
-        // };
-
-        // var material = new THREE.ShaderMaterial({
-        //     uniforms: uniforms,
-        //     vertexShader: document.getElementById('vertexShader').textContent, fragmentShader: document.getElementById('fragmentShader').textContent
-        // });
-
-
-
-        // var plane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 200,
-        //     200), material);
-        // plane.position.z = -10;
-        // plane.position.y = -1;
-        // plane.rotation.x = -Math.PI / 2;
-        // scene.add(plane);
-
-
-
-
-
-
-
-
-
-
-        // setup texture and height map for volcano
+        // add volcano to scene using a texture and height map
         var uniforms = {
             texture1: { type: "t", value: THREE.ImageUtils.loadTexture("slate.png") },
-            //texture1: { type: "t", value: THREE.ImageUtils.loadTexture("stone.jpg") },
             heightMap1: { type: "t", value: THREE.ImageUtils.loadTexture("volcano.png") }
         };
-
-        // setup shader material for volcano
         var material = new THREE.ShaderMaterial({
             uniforms: uniforms,
             vertexShader: document.getElementById('vertexShader').textContent, fragmentShader: document.getElementById('fragmentShader').textContent
         });
-
-
-        // setup volcano that uses texture/heightmap
         var volcano = new THREE.Mesh(new THREE.PlaneGeometry(10, 10, 200,
             200), material);
-
         volcano.position.z = -8;
-
         volcano.scale.x = 3;
         volcano.scale.y = 2;
         volcano.scale.z = 2;
-
         scene.add(volcano);
 
-
-
-
-
-        // setup lava
+        // add lava to scene
         const mat = new THREE.MeshPhongMaterial({
             color: 0xed1c16,
             Shininess: 100, side: THREE.DoubleSide
         })
         var p = new THREE.PlaneGeometry(20, 20, 100, 100);
         var lava = new THREE.Mesh(p, mat);
-
         lava.position.x = -0.9;
         lava.position.y = 0.6;
         lava.position.z = -6.2;
-
         lava.scale.x = 0.3;
         lava.scale.y = 0.17;
         lava.scale.z = 0.17;
-
         scene.add(lava);
-
-
 
         // add ripple effect to lava
         var matShader;
@@ -169,7 +144,7 @@
             const token = '#include <begin_vertex>'
             const customTransform = `
                 vec3 transformed = vec3(position);
-                float freq = 2.5;
+                float freq = 3.5;
                 float amp = 0.07;
                 float angle = (time + position.x)*freq;
                 transformed.z += sin(angle)*amp;
@@ -181,11 +156,8 @@
             matShader = shader
         }
 
-
-
-
-
-        // add lava shark
+        // add lava shark to volcano
+        // It's a "Shark-cano"!
         var loader = new THREE.GLTFLoader();
         loader.load('shark.glb', function (gltf) {
             scene.add(gltf.scene);
@@ -195,19 +167,13 @@
             gltf.scene.scale.x = 0.5;
             gltf.scene.scale.y = 0.5;
             gltf.scene.scale.z = 0.5;
-            // gltf.scene.rotation.x = 0.8;
-            // gltf.scene.rotation.y = -0.1;
-            // gltf.scene.rotation.z = 1.6;
         }, function (xhr) {
             console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         }, function (error) {
             console.error(error);
         });
 
-
-
-
-        // animate
+        // animate scene
         function animate(time) {
 
             // animate lava ripple effect
