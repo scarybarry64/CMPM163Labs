@@ -60,3 +60,5 @@ Height Map Screenshot: ![](lab7/screenshots/Volcano.png)
 Alternate Texture Screenshot: ![](lab7/screenshots/VolcanoWater.png)
 
 Video of Ripple Effect: https://drive.google.com/file/d/1OAE16n8XFCRfEBH04LUG9fTmOSoVgStR/view?usp=sharing
+
+Part 2c Screenshot - "Shark-cano": ![](lab7/screenshots/SharkVolcano.png)
