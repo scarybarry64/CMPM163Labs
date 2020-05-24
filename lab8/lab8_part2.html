@@ -141,84 +141,145 @@
 
                     if (order == 0) {
 
-
+                        // business
                         if (noiseData[i] < 64) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] + 192) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xDBE4EB);
                         }
+                        // slum
                         else if (noiseData[i] >= 64 && noiseData[i] < 128) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] - 64) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0x9E6B4A);
                         }
+                        // park/water
                         else if (noiseData[i] >= 128 && noiseData[i] < 192) {
-
+                            cube.scale.y = 0.01;
+                            if (noiseData[i] < 160) {
+                                cube.material.color.setHex(0x73B6FE);
+                            }
                         }
+                        // neighborhood
                         else {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] - 64) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xF9E4B7);
                         }
 
                     }
                     else if (order == 1) {
 
-
+                        // neighborhood
                         if (noiseData[i] < 64) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] + 128) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xF9E4B7);
                         }
+                        // business
                         else if (noiseData[i] >= 64 && noiseData[i] < 128) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] + 128) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xDBE4EB);
                         }
+                        // slum
                         else if (noiseData[i] >= 128 && noiseData[i] < 192) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] - 128) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0x9E6B4A);
                         }
+                        // park/water
                         else {
-
+                            cube.scale.y = 0.01;
+                            if (noiseData[i] < 224) {
+                                cube.material.color.setHex(0x73B6FE);
+                            }
                         }
 
 
                     }
                     else if (order == 2) {
 
+                        // park/water
                         if (noiseData[i] < 64) {
-
+                            cube.scale.y = 0.01;
+                            if (noiseData[i] < 32) {
+                                cube.material.color.setHex(0x73B6FE);
+                            }
                         }
+                        // neighborhood
                         else if (noiseData[i] >= 64 && noiseData[i] < 128) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] + 64) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xF9E4B7);
                         }
+                        // business
                         else if (noiseData[i] >= 128 && noiseData[i] < 192) {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] + 64) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xDBE4EB);
                         }
+                        // slum
                         else {
-
+                            cube.scale.y = Math.random() + ((noiseData[i] - 192) / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0x9E6B4A);
                         }
 
 
                     }
                     else {
 
-
+                        // slum
                         if (noiseData[i] < 64) {
-
+                            cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0x9E6B4A);
                         }
+                        // park/water
                         else if (noiseData[i] >= 64 && noiseData[i] < 128) {
-
+                            cube.scale.y = 0.01;
+                            if (noiseData[i] < 96) {
+                                cube.material.color.setHex(0x73B6FE);
+                            }
                         }
+                        // neighborhood
                         else if (noiseData[i] >= 128 && noiseData[i] < 192) {
-
+                            cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xF9E4B7);
                         }
+                        // business
                         else {
-
+                            cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
+                            cube.scale.x = .7;
+                            cube.scale.z = .7;
+                            cube.material.color.setHex(0xDBE4EB);
                         }
 
 
                     }
 
 
+                    
 
-
-                    //console.log(noiseData[i]);
-                    if (noiseData[i] < (Math.random() * 255)) {
-                        cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
-                        cube.scale.x = .7;
-                        cube.scale.z = .7;
-                    }
+                    // //console.log(noiseData[i]);
+                    // if (noiseData[i] < (Math.random() * 255)) {
+                    //     cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
+                    //     cube.scale.x = .7;
+                    //     cube.scale.z = .7;
+                    // }
 
 
 
