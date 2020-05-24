@@ -125,15 +125,104 @@
 
             // now noiseData is a list of semi-random values from 0 to 255
             // building generation code will go here:
+
+
+            let order = Math.floor(Math.random() * 4);
+            console.log(order);
+
+
             var i = 0;
             for (var r = -planeSize / 2; r < planeSize / 2; r++) {
                 for (var c = -planeSize / 2; c < planeSize / 2; c++) {
                     var geometry = new THREE.BoxGeometry();
                     var material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
                     var cube = new THREE.Mesh(geometry, material);
-                    cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
-                    cube.scale.x = .7;
-                    cube.scale.z = .7;
+
+
+                    if (order == 0) {
+
+
+                        if (noiseData[i] < 64) {
+
+                        }
+                        else if (noiseData[i] >= 64 && noiseData[i] < 128) {
+
+                        }
+                        else if (noiseData[i] >= 128 && noiseData[i] < 192) {
+
+                        }
+                        else {
+
+                        }
+
+                    }
+                    else if (order == 1) {
+
+
+                        if (noiseData[i] < 64) {
+
+                        }
+                        else if (noiseData[i] >= 64 && noiseData[i] < 128) {
+
+                        }
+                        else if (noiseData[i] >= 128 && noiseData[i] < 192) {
+
+                        }
+                        else {
+
+                        }
+
+
+                    }
+                    else if (order == 2) {
+
+                        if (noiseData[i] < 64) {
+
+                        }
+                        else if (noiseData[i] >= 64 && noiseData[i] < 128) {
+
+                        }
+                        else if (noiseData[i] >= 128 && noiseData[i] < 192) {
+
+                        }
+                        else {
+
+                        }
+
+
+                    }
+                    else {
+
+
+                        if (noiseData[i] < 64) {
+
+                        }
+                        else if (noiseData[i] >= 64 && noiseData[i] < 128) {
+
+                        }
+                        else if (noiseData[i] >= 128 && noiseData[i] < 192) {
+
+                        }
+                        else {
+
+                        }
+
+
+                    }
+
+
+
+
+                    //console.log(noiseData[i]);
+                    if (noiseData[i] < (Math.random() * 255)) {
+                        cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
+                        cube.scale.x = .7;
+                        cube.scale.z = .7;
+                    }
+
+
+
+
                     cube.position.z = planeCenter.z + c + cube.scale.z / 2;
                     cube.position.x = r + cube.scale.x / 2;
                     cube.position.y = planeCenter.y + cube.scale.y / 2;
