@@ -73,5 +73,7 @@ Inspiration: ![](lab8/nyc.jpg)
 
 My City: ![](lab8/screenshot.png)
 
-How I Was Inspired: 
+How I Was Inspired: Admittedly, I didn't really use an image for inspiration when making my city. Rather, I drew from real life experience with being in several large cities, with New York being the most notable. As such, I ended up designing a city that largely followed NYC and other typical big American cities. I wanted my city to have some variety in its landscape. I wanted tall silver skyscrapers and rundown brown boroughs, bustling business districts and even lush city park oases. Much like how NYC has all of these, I modeled my city with these traits. It's nowhere near the level of detail befitting The Big Apple, but it nonetheless taught me some clever tricks with using procedural generation and noise texture maps. More importantly, I enjoyed it!
+
+
 
