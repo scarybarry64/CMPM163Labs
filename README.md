@@ -65,3 +65,13 @@ Part 2c Screenshot - "Shark-cano": ![](lab7/screenshots/Sharkcano.png)
 
 Partner Check-In:
 Unfortunately, I was unable to contact my partner (Daniel Liao). I couldn't find him in Discord (I even posted his name in the class chat). As such, I did this lab solo.
+
+
+# Lab 8 (Part 2)
+
+Inspiration: ![](lab8/nyc.jpg)
+
+My City: ![](lab8/screenshot.png)
+
+How I Was Inspired: 
+
