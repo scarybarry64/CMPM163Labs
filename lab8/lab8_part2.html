@@ -19,21 +19,6 @@
     <script src="../three.js-master/build/three.js"></script>
     <script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // setup the scene
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -84,14 +69,6 @@
             camera.lookAt(0, 0, planeCenter.z);
         };
 
-
-
-
-
-
-
-
-
         // this function loads the context for the canvas
         function initContext(canvasID, contextType) {
             var canvas = document.createElement('canvas');
@@ -126,10 +103,8 @@
             // now noiseData is a list of semi-random values from 0 to 255
             // building generation code will go here:
 
-
-            let order = Math.floor(Math.random() * 4);
-            console.log(order);
-
+            let order = Math.floor(Math.random() * 4); // used for city variety
+            //console.log(order);
 
             var i = 0;
             for (var r = -planeSize / 2; r < planeSize / 2; r++) {
@@ -138,31 +113,33 @@
                     var material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
                     var cube = new THREE.Mesh(geometry, material);
 
-
+                    // semi-randomly generate a city from one of four different "presets"
+                    // cities made of 4 parts, each with a different height range and color:
+                    // business (grey), slum (brown), park/water (green/blue), neighborhood (beige)
                     if (order == 0) {
 
-                        // business
+                        // business (grey)
                         if (noiseData[i] < 64) {
                             cube.scale.y = Math.random() + ((noiseData[i] + 192) / 255 * 10);
                             cube.scale.x = .7;
                             cube.scale.z = .7;
                             cube.material.color.setHex(0xDBE4EB);
                         }
-                        // slum
+                        // slum (brown)
                         else if (noiseData[i] >= 64 && noiseData[i] < 128) {
                             cube.scale.y = Math.random() + ((noiseData[i] - 64) / 255 * 10);
                             cube.scale.x = .7;
                             cube.scale.z = .7;
                             cube.material.color.setHex(0x9E6B4A);
                         }
-                        // park/water
+                        // park/water (green/blue)
                         else if (noiseData[i] >= 128 && noiseData[i] < 192) {
                             cube.scale.y = 0.01;
                             if (noiseData[i] > 160) {
                                 cube.material.color.setHex(0x73B6FE);
                             }
                         }
-                        // neighborhood
+                        // neighborhood (beige)
                         else {
                             cube.scale.y = Math.random() + ((noiseData[i] - 64) / 255 * 10);
                             cube.scale.x = .7;
@@ -201,8 +178,6 @@
                                 cube.material.color.setHex(0x73B6FE);
                             }
                         }
-
-
                     }
                     else if (order == 2) {
 
@@ -234,8 +209,6 @@
                             cube.scale.z = .7;
                             cube.material.color.setHex(0x9E6B4A);
                         }
-
-
                     }
                     else {
 
@@ -267,23 +240,9 @@
                             cube.scale.z = .7;
                             cube.material.color.setHex(0xDBE4EB);
                         }
-
-
                     }
 
-
-                    
-
-                    // //console.log(noiseData[i]);
-                    // if (noiseData[i] < (Math.random() * 255)) {
-                    //     cube.scale.y = Math.random() + (noiseData[i] / 255 * 10);
-                    //     cube.scale.x = .7;
-                    //     cube.scale.z = .7;
-                    // }
-
-
-
-
+                    // Configure cubes for final positioning
                     cube.position.z = planeCenter.z + c + cube.scale.z / 2;
                     cube.position.x = r + cube.scale.x / 2;
                     cube.position.y = planeCenter.y + cube.scale.y / 2;
@@ -296,18 +255,7 @@
         var context = initContext('canvas', '2d'); // initialize the canvas
         loadImage('perlin_34_34.jpg', context); // load the perlin image
 
-
-
-
-
-
-
-
-
-
-
-
-
+        // animate scene
         function animate() {
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
